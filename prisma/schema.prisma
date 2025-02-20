@@ -1,0 +1,32 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+}
+
+model Customer {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  image_url String
+  invoices  Invoice[] // 👈 Relation to Invoice
+}
+
+model Invoice {
+  id          String   @id @default(uuid())
+  customer_id String
+  amount      Int
+  status      String
+  date        DateTime
+  customer    Customer @relation(fields: [customer_id], references: [id])
+}
