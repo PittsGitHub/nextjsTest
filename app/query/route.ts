@@ -19,6 +19,12 @@ export async function GET() {
   try {
     return Response.json(await listInvoices());
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    if (error instanceof Error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+    return Response.json(
+      { error: "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }

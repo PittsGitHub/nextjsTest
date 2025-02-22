@@ -30,3 +30,9 @@ model Invoice {
   date        DateTime
   customer    Customer @relation(fields: [customer_id], references: [id])
 }
+
+model Revenue {
+  id     Int    @id @default(autoincrement())
+  month  String @unique
+  revenue Int
+}
