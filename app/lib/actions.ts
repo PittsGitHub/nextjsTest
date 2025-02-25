@@ -34,6 +34,10 @@ export async function createInvoice(formData: FormData) {
 
   revalidatePath("/dashboard/invoices");
   redirect("/dashboard/invoices");
-  // Test it out:
-  // console.log(rawFormData);
+}
+
+export async function deleteInvoice(id: string) {
+  await sql`
+  DELETE FROM "Invoice" WHERE "id" = ${id}`;
+  revalidatePath("/dashboard/invoices");
 }
